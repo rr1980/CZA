@@ -12,4 +12,8 @@ export class InternHomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  helloWorld() {
+    
+  }
+
 }
