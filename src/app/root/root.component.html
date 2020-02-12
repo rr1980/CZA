@@ -1,3 +1,14 @@
+<dx-button
+    text="DE"
+    (onClick)="goDE()">
+</dx-button>
+
+<dx-button
+    text="EN"
+    (onClick)="goEN()">
+</dx-button>
+
+<h1>{{ greeting }}</h1>
 <ul>
     <li>
         <a [routerLinkActive]="['active']" [routerLink]="['/intern']">
