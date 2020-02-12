@@ -1,8 +1,19 @@
 import { Component } from '@angular/core';
 
+import "devextreme/localization/globalize/number";
+import "devextreme/localization/globalize/date";
+import "devextreme/localization/globalize/currency";
+import "devextreme/localization/globalize/message";
+
 import deMessages from "devextreme/localization/messages/de.json";
 import enMessages from "devextreme/localization/messages/en.json";
-import { formatMessage, locale, loadMessages } from "devextreme/localization";
+
+import supplemental from "devextreme-cldr-data/supplemental.json";
+import deCldrData from "devextreme-cldr-data/de.json";
+import enCldrData from "devextreme-cldr-data/en.json";
+
+import Globalize from "globalize";
+import { Router } from '@angular/router';
 
 const customMessages = {
   de: {
@@ -19,24 +30,30 @@ const customMessages = {
   styleUrls: ['root.component.scss']
 })
 export class RootComponent {
-  constructor() {
-    console.debug(navigator.language);
-    console.debug(deMessages);
-    loadMessages(deMessages);
-    loadMessages(enMessages);
-    loadMessages(customMessages);
-    locale(navigator.language);
+  constructor(private router: Router) {
+    Globalize.load(
+      supplemental, deCldrData, enCldrData
+    );
+
+    Globalize.loadMessages(deMessages);
+    Globalize.loadMessages(enMessages);
+    Globalize.loadMessages(customMessages);
+
+    Globalize.locale(navigator.language);
   }
 
   get greeting() {
-    return formatMessage('greetingMessage', 'CZA');
+    return Globalize.formatMessage('greetingMessage', 'CZA');
   }
 
-  goDE(){
-    locale('de-DE');
-  }
+  switchLanguage(lang: string) {
 
-  goEN(){
-    locale('en-GB');
+    Globalize.locale(lang);
+
+    let currentUrl = this.router.url;
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 }

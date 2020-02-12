@@ -5,6 +5,8 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
 import { RootComponent } from './root/root.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DxButtonModule } from 'devextreme-angular';
+
 @NgModule({
   declarations: [
     RootComponent,
@@ -13,7 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DxButtonModule
   ],
   providers: [],
   bootstrap: [RootComponent]
